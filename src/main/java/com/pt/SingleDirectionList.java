@@ -111,24 +111,24 @@ public class SingleDirectionList {
     }
 
     /**
-     * 两个无环列表如果相交，交点之后的元素一定是共享的（两个列表最后一个元素一定相等，否则无交点）
-     * 确定有交点之后，根据长度，对于较长的列表先走一些距离，当剩下距离与短列表相同时，
-     * 两个同时走，知道碰见相同的元素
+     * 在endNode1和endNode2之前是否相交（不包含endNode1和endNode2）
      *
      * @param node1
      * @param node2
+     * @param endNode1
+     * @param endNode2
      * @return
      */
-    static Node nonLoopIntersection(Node node1, Node node2) {
+    static Node nonLoopIntersection(Node node1, Node node2, Node endNode1, Node endNode2) {
         Node node1End = node1;
         Node node2End = node2;
         int node1Size = 1;
         int node2Size = 1;
-        while (node1End.next != null) {
+        while (node1End.next != endNode1) {
             node1End = node1End.next;
             node1Size++;
         }
-        while (node2End.next != null) {
+        while (node2End.next != endNode2) {
             node2End = node2End.next;
             node2Size++;
         }
@@ -159,12 +159,64 @@ public class SingleDirectionList {
         }
     }
 
+    /**
+     * 两个无环链表如果相交，交点之后的元素一定是共享的（两个链表最后一个元素一定相等，否则无交点）
+     * 确定有交点之后，根据长度，对于较长的链表先走一些距离，当剩下距离与短链表相同时，
+     * 两个同时走，知道碰见相同的元素
+     *
+     * @param node1
+     * @param node2
+     * @return
+     */
+    static Node nonLoopIntersection(Node node1, Node node2) {
+        return nonLoopIntersection(node1, node2, null, null);
+    }
+
+    /**
+     * 关键点：先判断入环之前是否相交，在判断在入环出是否相交，最后判断环内是否
+     * 相交，顺序不可乱；（如果在入环前相交，那么后面每个都是交点，所以后面判断
+     * 逻辑得出的相等点不是第一个交点）
+     * @param node1
+     * @param node2
+     * @return
+     */
+    static Node loopIntersection(Node node1, Node node2) {
+        Node inNode1 = hasLoop(node1);
+        Node inNode2 = hasLoop(node2);
+        Node preIntersectionNode = nonLoopIntersection(node1, node2, inNode1, inNode2);
+        if (preIntersectionNode != null) {
+            return preIntersectionNode;
+        }
+        if (inNode1.equals(inNode2)) {//是否在入口点相交
+            return inNode1;
+        }
+        Node node1Start = node1.next;
+        while (!node1Start.equals(node1)) {
+            if (node1Start.equals(inNode2)) {
+                return node1Start;
+            }
+            node1Start = node1Start.next;
+        }
+        return null;
+    }
+
+    /**
+     * 判断两个链表是否相交，两个链表可能有环，可能无环
+     * 分两种情况：两个都有环和两个都无环；
+     * 一个有环一个无环的链表不可能相交
+     * @param node1
+     * @param node2
+     * @return
+     */
     static Node isIntersection(Node node1, Node node2) {
         if (node1 == null || node2 == null) return null;
         Node node1LoopStart = hasLoop(node1);
         Node node2LoopStart = hasLoop(node2);
         if (node1LoopStart == null && node2LoopStart == null) {
             return nonLoopIntersection(node1, node2);
+        }
+        if (node1LoopStart != null && node2LoopStart != null) {
+            return loopIntersection(node1, node2);
         }
         return null;
     }
@@ -183,6 +235,17 @@ public class SingleDirectionList {
         Node intersection = isIntersection(nodes1[0], nodes2[0]);
         System.out.println("isIntersection:" + (intersection != null ? intersection.data : "null"));
 
+        //有环相交
+        Node[] nodes3 = {new Node(1), new Node(2), new Node(3), new Node(4),
+                new Node(5), new Node(6)};
+        Node[] nodes4 = {new Node(1), new Node(2), new Node(3), new Node(4),
+                new Node(5), new Node(6)};
+        createList(nodes3);
+        createList(nodes4);
+        nodes3[nodes3.length - 1].next = nodes3[3];
+        nodes4[1].next = nodes3[4];
+        Node intersectionNode = isIntersection(nodes3[0], nodes4[0]);
+        System.out.println("loopIntersection:" + (intersectionNode == null ? "null" : intersectionNode.data));
     }
 
     static void createList(Node[] nodes) {
