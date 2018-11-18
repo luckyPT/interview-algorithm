@@ -63,7 +63,7 @@ public class SingleDirectionList {
     }
 
     /**
-     * 借助快慢指针，第一次相遇之后
+     * 借助快慢指针，找到入口点，然后从头遍历并且计数，直到第二次走到入口点；
      *
      * @param node
      * @return
@@ -110,6 +110,15 @@ public class SingleDirectionList {
 
     }
 
+    /**
+     * 两个无环列表如果相交，交点之后的元素一定是共享的（两个列表最后一个元素一定相等，否则无交点）
+     * 确定有交点之后，根据长度，对于较长的列表先走一些距离，当剩下距离与短列表相同时，
+     * 两个同时走，知道碰见相同的元素
+     *
+     * @param node1
+     * @param node2
+     * @return
+     */
     static Node nonLoopIntersection(Node node1, Node node2) {
         Node node1End = node1;
         Node node2End = node2;
@@ -154,7 +163,7 @@ public class SingleDirectionList {
         if (node1 == null || node2 == null) return null;
         Node node1LoopStart = hasLoop(node1);
         Node node2LoopStart = hasLoop(node2);
-        if (node1LoopStart == null && node2LoopStart == null) {//两个无环列表如果相交，交点之后的元素一定是共享的（两个列表最后一个元素一定相等）
+        if (node1LoopStart == null && node2LoopStart == null) {
             return nonLoopIntersection(node1, node2);
         }
         return null;
