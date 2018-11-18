@@ -13,6 +13,14 @@
 
 - 有序奇数个元素的数列随机旋转之后，找到中间数
 
-- 两个列表是否相交（分两个无环链表是否相交 & 两个有环链表是否相交，一个有环一个无环不可能相交）
+- 两个链表是否相交（分两个无环链表是否相交 & 两个有环链表是否相交，一个有环一个无环不可能相交）
+
+- 链表按K分组，组内翻转
 
 - [链表增删、反转](https://github.com/luckyPT/luckyPT/blob/master/docs/interview/list.md)
+
+- [排序与查找算法](https://github.com/luckyPT/luckyPT/blob/master/docs/interview/dataStructureAndAlgorithms.md)
+
+- [树的遍历](https://github.com/luckyPT/luckyPT/blob/master/docs/interview/dataStructureAndAlgorithms.md)
+
+- [翻转二叉树](https://github.com/luckyPT/luckyPT/blob/master/docs/interview/tree.md)
