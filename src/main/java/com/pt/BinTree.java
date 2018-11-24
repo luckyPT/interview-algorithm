@@ -170,6 +170,44 @@ public class BinTree {
         return Math.max(leftHight, rightHight) + 1;
     }
 
+    /**
+     * 根算作第一层，奇数层从左向右打印，偶数层从右向左打印
+     *
+     * @param root
+     */
+    static void zigZagPrint(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        Stack<TreeNode> stack1 = new Stack<>();
+        Stack<TreeNode> stack2 = new Stack<>();
+        stack1.push(root);
+        while (!stack1.empty() || !stack2.empty()) {
+            while (!stack1.empty()) {
+                TreeNode node = stack1.pop();
+                System.out.print(node.data + ",");
+                if (node.left != null) {
+                    stack2.push(node.left);
+                }
+                if (node.right != null) {
+                    stack2.push(node.right);
+                }
+            }
+            System.out.println();
+            while (!stack2.empty()) {
+                TreeNode node = stack2.pop();
+                System.out.print(node.data + ",");
+                if (node.right != null) {
+                    stack1.push(node.right);
+                }
+                if (node.left != null) {
+                    stack1.push(node.left);
+                }
+            }
+            System.out.println();
+        }
+    }
+
     public static void main(String[] args) {
         TreeNode root = createSearchTree(new int[]{1, 6, 3, 2, 4, 7, 5, 9, 10, 8});
         DoubleDirectionLinkNode linkRootNode = treeToLink(root);
@@ -196,5 +234,7 @@ public class BinTree {
         nodes[11].right = nodes[15];
 
         printEdgeAnticlockwise1(nodes[0]);
+
+        zigZagPrint(nodes[0]);
     }
 }
