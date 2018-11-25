@@ -1,6 +1,33 @@
 package com.pt;
 
+import java.util.Arrays;
+
 public class Matrix {
+    /**
+     * matrix从上到下递增，从左到右递增
+     * 从matrix中寻找value，并返回下标，如果不存在，返回[-1,-1]
+     *
+     * @param matrix
+     * @param value
+     * @return
+     */
+    static int[] search(int[][] matrix, int value) {
+        int row = 0;
+        int cols = matrix[0].length - 1;
+        while (row < matrix.length && cols >= 0) {
+            if (matrix[row][cols] == value) {
+                return new int[]{row, cols};
+            }
+            if (matrix[row][cols] > value) {
+                cols--;
+            }
+            if (matrix[row][cols] < value) {
+                row++;
+            }
+        }
+        return new int[]{-1, -1};
+    }
+
     static void printByClockWise(int[][] array) {
         int circleCount = 0;
         int cols = -1;
@@ -27,6 +54,8 @@ public class Matrix {
     }
 
     public static void main(String[] args) {
-        printByClockWise(new int[][]{{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}, {13, 14, 15, 16}});
+        int[][] matrix = new int[][]{{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}, {13, 14, 15, 16}};
+        printByClockWise(matrix);
+        System.out.println(Arrays.toString(search(matrix,12)));
     }
 }
