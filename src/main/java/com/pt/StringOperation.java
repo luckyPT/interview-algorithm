@@ -1,11 +1,43 @@
 package com.pt;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class StringOperation {
+    /**
+     * 找出最长的不含重复字符的子串
+     *
+     * @param s
+     * @return
+     */
+    static String getMaxUniqueSubStr(String s) {
+        System.out.println("原串：" + s);
+        char[] chars = s.toCharArray();
+        int min = 0;
+        int[] startEnd = new int[]{0, 0};
+        Map<Character, Integer> char2Index = new HashMap<>();
+        for (int i = 0; i < chars.length; i++) {
+            System.out.print(min + ",");
+            if (char2Index.containsKey(chars[i])) {
+                if (i - 1 - min > startEnd[1] - startEnd[0]) {
+                    startEnd[0] = min;
+                    startEnd[1] = i - 1;
+                }
+                //切记只有满足这个条件时，才可赋值；因为即使出现重复元素，但是这个重复元素的值，小于min，也不需要赋值
+                if (min < char2Index.get(chars[i]) + 1) {
+                    min = char2Index.get(chars[i]) + 1;
+                }
+            } else {
+                if (i - min > startEnd[1] - startEnd[0]) {
+                    startEnd[0] = min;
+                    startEnd[1] = i;
+                }
+            }
+            char2Index.put(chars[i], i);
+        }
+
+        return s.substring(startEnd[0], startEnd[1] + 1);
+    }
+
     /**
      * 将str分割成不同的子串，并满足如下条件：
      * 1. 每个元素仅出现在一个子串中
@@ -34,11 +66,16 @@ public class StringOperation {
             }
 
         }
-        return ret.toArray(new String[ret.size()]);
+        return ret.toArray(new String[0]);
     }
 
     public static void main(String[] args) {
         String[] parts = splitMoreParts("ababcbacadefegdehijhklij");
         System.out.println(Arrays.toString(parts));
+        System.out.println(getMaxUniqueSubStr("abcdadefrderhuhuasdfghjk"));
+        Map<Character, Integer> s = new HashMap<>();
+        s.put('x', 1);
+        s.put('x', 2);
+        System.out.println(s.get('x'));
     }
 }
