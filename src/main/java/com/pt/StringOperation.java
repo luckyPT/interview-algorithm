@@ -16,21 +16,10 @@ public class StringOperation {
         int[] startEnd = new int[]{0, 0};
         Map<Character, Integer> char2Index = new HashMap<>();
         for (int i = 0; i < chars.length; i++) {
-            System.out.print(min + ",");
-            if (char2Index.containsKey(chars[i])) {
-                if (i - 1 - min > startEnd[1] - startEnd[0]) {
-                    startEnd[0] = min;
-                    startEnd[1] = i - 1;
-                }
-                //切记只有满足这个条件时，才可赋值；因为即使出现重复元素，但是这个重复元素的值，小于min，也不需要赋值
-                if (min < char2Index.get(chars[i]) + 1) {
-                    min = char2Index.get(chars[i]) + 1;
-                }
-            } else {
-                if (i - min > startEnd[1] - startEnd[0]) {
-                    startEnd[0] = min;
-                    startEnd[1] = i;
-                }
+            min = Math.max(min, char2Index.getOrDefault(chars[i], -1));
+            if (i - min > startEnd[1] - startEnd[0]) {
+                startEnd[0] = min;
+                startEnd[1] = i;
             }
             char2Index.put(chars[i], i);
         }
