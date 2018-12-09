@@ -1,31 +1,21 @@
-package com.pt;
+package com.pt.tree;
 
 import java.util.ArrayDeque;
 import java.util.Queue;
 import java.util.Stack;
 
 public class BinTree {
-    static class TreeNode {
-        int data;
-        TreeNode left;
-        TreeNode right;
-
-        public TreeNode(int data) {
-            this.data = data;
-        }
-    }
-
     static class DoubleDirectionLinkNode {
         int data;
         DoubleDirectionLinkNode pre;
         DoubleDirectionLinkNode next;
 
-        public DoubleDirectionLinkNode(int data) {
+        DoubleDirectionLinkNode(int data) {
             this.data = data;
         }
     }
 
-    static TreeNode createCompleteTree(TreeNode[] treeNodes) {
+    static void createCompleteTree(TreeNode[] treeNodes) {
         for (int i = 0; i < treeNodes.length / 2; i++) {
             int leftIndex = 2 * i + 1;
             int rightIndex = 2 * i + 2;
@@ -36,19 +26,18 @@ public class BinTree {
                 treeNodes[i].right = treeNodes[rightIndex];
             }
         }
-        return treeNodes[0];
     }
 
     /**
      * 基于数组构造二叉搜索树
      *
-     * @param array
-     * @return
+     * @param array 数组
+     * @return 二叉搜索树的根结点
      */
     static TreeNode createSearchTree(int[] array) {
         TreeNode root = null;
-        for (int i = 0; i < array.length; i++) {
-            root = insertToSearchTree(root, array[i]);
+        for (int anArray : array) {
+            root = insertToSearchTree(root, anArray);
         }
         return root;
     }
@@ -56,11 +45,11 @@ public class BinTree {
     /**
      * 二叉搜索树插入元素，递归实现
      *
-     * @param root
-     * @param data
-     * @return
+     * @param root 二叉搜索树根结点
+     * @param data 待插入的数据
+     * @return 根结点
      */
-    static TreeNode insertToSearchTree(TreeNode root, int data) {
+    private static TreeNode insertToSearchTree(TreeNode root, int data) {
         if (root == null) return new TreeNode(data);
         if (root.data > data) {
             root.left = insertToSearchTree(root.left, data);
@@ -74,10 +63,10 @@ public class BinTree {
      * 二叉搜索树转有序双向链表
      * 借助中序遍历实现
      *
-     * @param root
-     * @return
+     * @param root 树的根结点
+     * @return 链表的头结点
      */
-    static DoubleDirectionLinkNode treeToLink(TreeNode root) {
+    private static DoubleDirectionLinkNode treeToLink(TreeNode root) {
         Queue<TreeNode> queue = new ArrayDeque<>();
         addQueue(root, queue);
         DoubleDirectionLinkNode linkRootNode = null;
@@ -96,7 +85,7 @@ public class BinTree {
         return linkRootNode;
     }
 
-    static void addQueue(TreeNode treeNode, Queue<TreeNode> queue) {
+    private static void addQueue(TreeNode treeNode, Queue<TreeNode> queue) {
         if (treeNode == null) return;
         addQueue(treeNode.left, queue);
         queue.add(treeNode);
@@ -110,9 +99,9 @@ public class BinTree {
      * 思路：分别遍历左边界，最后一层的叶子结点，右边界;注意最后一层的
      * 叶结点的第一个和最后一个，不要重复遍历
      *
-     * @param node
+     * @param node 树的根结点
      */
-    static void printEdgeAnticlockwise1(TreeNode node) {
+    private static void printEdgeAnticlockwise1(TreeNode node) {
         int height = getMaxHeight(node);
         TreeNode[][] leftRight = new TreeNode[height][2];
         getLeftRightEdge(node, 1, leftRight);
@@ -140,11 +129,11 @@ public class BinTree {
      * <p>
      * 需要注意，当某层只有一个结点时，leftRightNode[n-1][0]和leftRightNode[n-1][1]会是同一个结点
      *
-     * @param node
-     * @param h
-     * @param leftRightNode
+     * @param node -
+     * @param h 树的高度，从 1 开始
+     * @param leftRightNode -
      */
-    static void getLeftRightEdge(TreeNode node, int h, TreeNode[][] leftRightNode) {
+    private static void getLeftRightEdge(TreeNode node, int h, TreeNode[][] leftRightNode) {
         if (node == null) return;
         if (leftRightNode[h - 1][0] == null) {
             leftRightNode[h - 1][0] = node;
@@ -154,7 +143,7 @@ public class BinTree {
         getLeftRightEdge(node.right, h + 1, leftRightNode);
     }
 
-    static void lastHLeaf(TreeNode node, int height, int curH) {
+    private static void lastHLeaf(TreeNode node, int height, int curH) {
         if (node == null) return;
         lastHLeaf(node.left, height, curH + 1);
         lastHLeaf(node.right, height, curH + 1);
@@ -163,7 +152,7 @@ public class BinTree {
         }
     }
 
-    static int getMaxHeight(TreeNode node) {
+    private static int getMaxHeight(TreeNode node) {
         if (node == null) return 0;
         int leftHight = getMaxHeight(node.left);
         int rightHight = getMaxHeight(node.right);
@@ -173,9 +162,9 @@ public class BinTree {
     /**
      * 根算作第一层，奇数层从左向右打印，偶数层从右向左打印
      *
-     * @param root
+     * @param root 树的根结点
      */
-    static void zigZagPrint(TreeNode root) {
+    private static void zigZagPrint(TreeNode root) {
         if (root == null) {
             return;
         }

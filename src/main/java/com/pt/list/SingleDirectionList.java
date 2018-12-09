@@ -1,4 +1,4 @@
-package com.pt;
+package com.pt.list;
 
 import java.util.HashSet;
 import java.util.Set;

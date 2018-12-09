@@ -1,9 +1,11 @@
-package com.pt;
+package com.pt.tree;
+
+import com.pt.tree.BinTree;
 
 import java.util.*;
 
 public class BinSearchTree {
-    static boolean isSearchTree(BinTree.TreeNode root) {
+    static boolean isSearchTree(TreeNode root) {
 
         return false;
     }
@@ -13,18 +15,18 @@ public class BinSearchTree {
      * @param results 0-size  1-maxValue 2-minValue
      * @return
      */
-    static BinTree.TreeNode getMaxSearchTree2(BinTree.TreeNode root, int[] results) {
+    static TreeNode getMaxSearchTree2(TreeNode root, int[] results) {
         if (root == null) {
             results[0] = 0;
             results[1] = Integer.MIN_VALUE;//特别注意此处的赋值
             results[2] = Integer.MAX_VALUE;
             return null;
         }
-        BinTree.TreeNode left = getMaxSearchTree2(root.left, results);
+        TreeNode left = getMaxSearchTree2(root.left, results);
         int lsize = results[0];
         int lmaxValue = results[1];
         int lminValue = results[2];
-        BinTree.TreeNode right = getMaxSearchTree2(root.right, results);
+        TreeNode right = getMaxSearchTree2(root.right, results);
         int rsize = results[0];
         int rmaxValue = results[1];
         int rminValue = results[2];
@@ -65,19 +67,19 @@ public class BinSearchTree {
      * @param root
      * @return
      */
-    static BinTree.TreeNode getMaxSearchTree(BinTree.TreeNode root) {
+    static TreeNode getMaxSearchTree(TreeNode root) {
         if (root == null) return null;
-        Stack<BinTree.TreeNode> stack = new Stack<>();
-        BinTree.TreeNode curNode = root;
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode curNode = root;
         int min = Integer.MAX_VALUE;
-        List<BinTree.TreeNode> lastQueue = new LinkedList<>();
-        List<BinTree.TreeNode> curQueue = new LinkedList<>();
+        List<TreeNode> lastQueue = new LinkedList<>();
+        List<TreeNode> curQueue = new LinkedList<>();
         while (!stack.empty() || curNode != null) {
             if (curNode != null) {
                 stack.push(curNode);
                 curNode = curNode.left;
             } else {
-                BinTree.TreeNode node = stack.pop();
+                TreeNode node = stack.pop();
                 if (min > node.data) {
                     if (curQueue.size() > lastQueue.size()) {
                         lastQueue = curQueue;
@@ -93,7 +95,7 @@ public class BinSearchTree {
         if (curQueue.size() > lastQueue.size()) {
             lastQueue = curQueue;
         }
-        BinTree.TreeNode subRoot = null;
+        TreeNode subRoot = null;
         for (int i = 1; i < lastQueue.size() - 1; i++) {
             if (lastQueue.get(i - 1).right == lastQueue.get(i) || lastQueue.get(i + 1).left == lastQueue.get(i)) {
                 continue;
@@ -107,14 +109,14 @@ public class BinSearchTree {
     }
 
     public static void main(String[] args) {
-        BinTree.TreeNode[] nodes = new BinTree.TreeNode[]{new BinTree.TreeNode(6),
-                new BinTree.TreeNode(1), new BinTree.TreeNode(12), new BinTree.TreeNode(0),
-                new BinTree.TreeNode(3), new BinTree.TreeNode(10), new BinTree.TreeNode(13)};
-        BinTree.TreeNode[] nodes1 = new BinTree.TreeNode[]{nodes[5], new BinTree.TreeNode(4),
-                new BinTree.TreeNode(14), new BinTree.TreeNode(2), new BinTree.TreeNode(5),
-                new BinTree.TreeNode(11), new BinTree.TreeNode(15)};
-        BinTree.TreeNode[] nodes2 = new BinTree.TreeNode[]{nodes[6], new BinTree.TreeNode(20),
-                new BinTree.TreeNode(16)};
+        TreeNode[] nodes = new TreeNode[]{new TreeNode(6),
+                new TreeNode(1), new TreeNode(12), new TreeNode(0),
+                new TreeNode(3), new TreeNode(10), new TreeNode(13)};
+        TreeNode[] nodes1 = new TreeNode[]{nodes[5], new TreeNode(4),
+                new TreeNode(14), new TreeNode(2), new TreeNode(5),
+                new TreeNode(11), new TreeNode(15)};
+        TreeNode[] nodes2 = new TreeNode[]{nodes[6], new TreeNode(20),
+                new TreeNode(16)};
 
         BinTree.createCompleteTree(nodes);
         BinTree.createCompleteTree(nodes1);

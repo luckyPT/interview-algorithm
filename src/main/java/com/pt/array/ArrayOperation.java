@@ -1,4 +1,4 @@
-package com.pt;
+package com.pt.array;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -75,9 +75,41 @@ public class ArrayOperation {
         return ret;
     }
 
-    public static void main(String[] args) {
-        System.out.println(Arrays.toString(getSumSubArray(new int[]{1, 2, 3, 4}, 6)));
+    /**
+     * 找到最长递增序列(可以不连续)
+     * 关键点：数组countLocWithMinNum 第i个元素的值表示
+     * 出现过i+1个的递增子序列的最后一个元素的最小值。
+     * 比如数组countLocWithMinNum[3]表示当前4个元素构成的序列
+     * 最后一个元素可能的最小值。时间复杂度n*logn
+     *
+     * 方法二：依次遍历，记录每一个元素对应的最长子序列，遍历下一个元素时，
+     * 需要跟之前的每个元素做比较才能得到这个元素的最长子序列。时间复杂度为n^2
+     * @param array -
+     * @return 最长序列
+     */
+    static int[] getMaxIncresingAarray(int[] array) {
+        int[] countLocWithMinNum = new int[array.length];
+        int right = 0;//right 以及right之后的元素表示无效
+        for (int i = 0; i < array.length; i++) {
+            int j;
+            for (j = 0; j < right; j++) {
+                if (countLocWithMinNum[j] > array[i]) {
+                    countLocWithMinNum[j] = array[i];
+                }
+            }
+            if (right == 0 || countLocWithMinNum[right - 1] < array[i]) {
+                countLocWithMinNum[right] = array[i];
+                right++;
+            }
+        }
 
-        System.out.println(Arrays.toString(getMaxSumSubStr(new int[]{3, 9, -8, 7, 6, 0, -5, 4, -3})));
+        return countLocWithMinNum;
+    }
+
+    public static void main(String[] args) {
+        //System.out.println(Arrays.toString(getSumSubArray(new int[]{1, 2, 3, 4}, 6)));
+        //System.out.println(Arrays.toString(getMaxSumSubStr(new int[]{3, 9, -8, 7, 6, 0, -5, 4, -3})));
+
+        System.out.println(Arrays.toString(getMaxIncresingAarray(new int[]{2, 1, 5, 3, 4, 6, 8, 7, 9})));
     }
 }
