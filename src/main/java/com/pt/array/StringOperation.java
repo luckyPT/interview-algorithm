@@ -58,13 +58,99 @@ public class StringOperation {
         return ret.toArray(new String[0]);
     }
 
+    /**
+     * 寻找str1和str2的最长公共子序列（子序列可以不连续）
+     * 关键点：构造M*N的矩阵a，a[m][n]表示str1的前m个元素和str2的前n个元素
+     * 的最长公共子序列。
+     * 先确定第一行和第一列的值，之后对于a[m][n+1]
+     * str1[m]和str2[n+1]
+     * 不相等的情况，说明两个字符至少有一个不能作为最长公共子序列
+     * 的最后一个值，因此取max(a[m][n],a[m-1][n+1])
+     * <p>
+     * 相等的情况，作为公共子序列的最后一个值，公共子序列长度为a[m-1][n] + 1
+     * 与max(a[m][n],a[m-1][n+1])比较，取最大值
+     * a[m][n+1] = str1[m].equals(str2[n+1]) ? max(a[m-1][n] + 1,a[m][n],a[m-1][n+1]) : max(a[m][n],a[m-1][n+1])
+     *
+     * @param str1 - M个字符的
+     * @param str2 - N个字符
+     * @return 公共子序列
+     */
+    static String getMaxLengthCommonSeq(String str1, String str2) {
+        char[] chars1 = str1.toCharArray();
+        char[] chars2 = str2.toCharArray();
+        int[][] a = new int[chars1.length][chars2.length];
+        int[] index = new int[2];
+        int max = 0;
+        //处理第一行
+        for (int i = 0; i < chars2.length; i++) {
+            if (chars1[0] == chars2[i]) {
+                a[0][i] = 1;
+                max = 1;
+                index[0] = 0;
+                index[1] = i;
+                for (i = i + 1; i < chars2.length; i++) {
+                    a[0][i] = 1;
+                }
+                break;
+            }
+        }
+        //处理第一列
+        for (int i = 0; i < chars1.length; i++) {
+            if (chars1[i] == chars2[0]) {
+                a[i][0] = 1;
+                max = 1;
+                index[0] = i;
+                index[1] = 0;
+                for (i = i + 1; i < chars1.length; i++) {
+                    a[i][0] = 1;
+                }
+                break;
+            }
+        }
+
+        for (int i = 1; i < chars1.length; i++) {
+            for (int j = 1; j < chars2.length; j++) {
+                if (chars1[i] == chars2[j]) {
+                    a[i][j] = Math.max(a[i - 1][j - 1] + 1, Math.max(a[i - 1][j], a[i][j - 1]));
+                } else {
+                    a[i][j] = Math.max(a[i - 1][j], a[i][j - 1]);
+                }
+                if (a[i][j] > max) {
+                    max = a[i][j];
+                    index[0] = i;
+                    index[1] = j;
+                }
+            }
+        }
+        int pre = 0;
+        StringBuilder ret = new StringBuilder();
+        for (int j = 0; j < chars2.length; j++) {
+            if (a[index[0]][j] - pre > 0) {
+                ret.append(chars2[j]);
+                pre = a[index[0]][j];
+            }
+        }
+        return ret.toString();
+    }
+
+    /**
+     * 寻找str1和str2的最长公共子串（子串必须连续）
+     * <p>
+     * 方法1：构造M*N矩阵a，a[m][n] = str1[m].equals(str2[n]) ? 1 : 0
+     * 按照对角线遍历，找到连续出现1的最长个数
+     *
+     * @param str1 - M个字符的
+     * @param str2 - N个字符
+     * @return 公共子序列
+     */
+    static String getMaxLengthCommonStr(String str1, String str2) {
+        return null;
+    }
+
     public static void main(String[] args) {
         String[] parts = splitMoreParts("ababcbacadefegdehijhklij");
         System.out.println(Arrays.toString(parts));
         System.out.println(getMaxUniqueSubStr("abcdadefrderhuhuasdfghjk"));
-        Map<Character, Integer> s = new HashMap<>();
-        s.put('x', 1);
-        s.put('x', 2);
-        System.out.println(s.get('x'));
+        System.out.println(getMaxLengthCommonSeq("2345efd", "1ab2345cd"));
     }
 }
