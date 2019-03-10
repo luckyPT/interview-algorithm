@@ -126,14 +126,36 @@ public class NumSeq {
     }
 
     /**
-     * 分析，可借鉴上述思路找到所有可能性，然后去重
+     * 要求返回的是元素值，而不是索引值；并且要求不能重复
+     * 参考上题的思路，只需要事先排序，在寻找的时候，对于已经最外层i++ 需要保证元素值与i不重复即可
+     *
      * @param nums 数组 [-1, 0, 1, 2, -1, -4]
      * @param target 找到所有可能的三个元素，使得数组求和等于target,并且不能重复；返回的是元素值
      * @return [ [-1, 0, 1],[-1, -1, 2]]
      */
     static List<List<Integer>> threeSum2(int[] nums, int target) {
+        Arrays.sort(nums);
+        ArrayList ret = new ArrayList();
+        for (int i = 0; i < nums.length; i++) {
+            if (i > 0 && nums[i] == nums[i - 1]) {
+                continue;
+            }
+            int remain = target - nums[i];
+            HashMap map = new HashMap();
+            for (int j = i + 1; j < nums.length; j++) {
+                if (map.containsKey(remain - nums[j])) {
+                    ArrayList tmpList = new ArrayList();
+                    tmpList.add(nums[i]);
+                    tmpList.add(nums[(Integer) map.get(remain - nums[j])]);
+                    tmpList.add(nums[j]);
+                    ret.add(tmpList);
+                } else {
+                    map.put(nums[j], j);
+                }
+            }
+        }
 
-        return null;
+        return ret;
     }
 
     public static void main(String[] args) {
@@ -145,7 +167,7 @@ public class NumSeq {
         System.out.println(findMiddle("4,5,6,7,0,1,2"));
         System.out.println(findMiddle("12,13,14,5,6,7,8,9,10"));
         int[] nums = new int[] {-1, 0, 1, 2, -1, -4};
-        List<List<Integer>> ret = threeSum(nums, 0);
+        List<List<Integer>> ret = threeSum2(nums, 0);
         System.out.println(ret);
 
     }
