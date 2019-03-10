@@ -71,7 +71,7 @@ public class NumSeq {
      * Given an array of integers, return indices of the two numbers such that they add up to a specific target.
      * You may assume that each input would have exactly one solution, and you may not use the same element twice.
      *
-     * @param nums [2, 7, 11, 15]
+     * @param nums   [2, 7, 11, 15]
      * @param target 9
      * @return [0, 1]
      */
@@ -79,7 +79,7 @@ public class NumSeq {
         for (int i = 0; i < nums.length; i++) {
             for (int j = i + 1; j < nums.length; j++) {
                 if (nums[i] + nums[j] == target) {
-                    return new int[] {i, j};
+                    return new int[]{i, j};
                 }
             }
         }
@@ -91,7 +91,7 @@ public class NumSeq {
         Map<Integer, Integer> map = new HashMap<>();
         for (int i = 0; i < nums.length; i++) {
             if (map.containsKey(target - nums[i])) {
-                return new int[] {map.get(target - nums[i]), i};
+                return new int[]{map.get(target - nums[i]), i};
             } else {
                 map.put(nums[i], i);
             }
@@ -100,7 +100,7 @@ public class NumSeq {
     }
 
     /**
-     * @param nums 数组 [-1, 0, 1, 2, -1, -4]
+     * @param nums   数组 [-1, 0, 1, 2, -1, -4]
      * @param target 找到所有可能的三个元素，使得数组求和等于target；返回元素索引
      * @return [[0, 1, 2], [0, 3, 4], [1, 2, 4]]
      */
@@ -129,7 +129,7 @@ public class NumSeq {
      * 要求返回的是元素值，而不是索引值；并且要求不能重复
      * 参考上题的思路，只需要事先排序，在寻找的时候，对于已经最外层i++ 需要保证元素值与i不重复即可
      *
-     * @param nums 数组 [-1, 0, 1, 2, -1, -4]
+     * @param nums   数组 [-1, 0, 1, 2, -1, -4]
      * @param target 找到所有可能的三个元素，使得数组求和等于target,并且不能重复；返回的是元素值
      * @return [ [-1, 0, 1],[-1, -1, 2]]
      */
@@ -158,6 +158,56 @@ public class NumSeq {
         return ret;
     }
 
+    /**
+     * 给定一个大小为 n 的数组，找到其中的众数。众数是指在数组中出现次数大于 ⌊ n/2 ⌋ 的元素。
+     * 假设数组是非空的，并且给定的数组总是存在众数
+     * 采用Map计数，时间和空间复杂度为O(n)
+     *
+     * @param nums [3,2,3]; [2,2,1,1,1,2,2]
+     * @return 3;2
+     */
+    static int majorityElement(int[] nums) {
+        Map<Integer, Integer> map = new HashMap();
+        for (int i = 0; i < nums.length; i++) {
+            int cur = map.getOrDefault(nums[i], 0);
+            if (cur + 1 > nums.length / 2) {
+                return nums[i];
+            } else {
+                map.put(nums[i], cur + 1);
+            }
+        }
+        throw new RuntimeException("--");
+    }
+
+    /**
+     * 功能同上，考虑基于原始数据，同时删除两个不同的数；那么数组的众数不变。
+     * 这样空间复杂度可以降到O(1)
+     *
+     * @param nums
+     * @return
+     */
+    static int majorityElement2(int[] nums) {
+        int cur = nums[0];
+        int count = 1;
+        for (int i = 1; i < nums.length; i++) {
+            if (cur == nums[i]) {
+                count++;
+            } else {
+                count--;
+                if (count <= 0 && i + 1 < nums.length) {
+                    cur = nums[i + 1];
+                    count = 1;
+                    i++;
+                }
+            }
+            if (count > nums.length / 2) {
+                return cur;
+            }
+        }
+
+        return cur;
+    }
+
     public static void main(String[] args) {
         //System.out.println(maxContinueCount("54,55,300,12,56"));
         //System.out.println(maxContinueCount("100,4,200,1,3,2"));
@@ -166,7 +216,7 @@ public class NumSeq {
         System.out.println(findMiddle("1,2,3"));
         System.out.println(findMiddle("4,5,6,7,0,1,2"));
         System.out.println(findMiddle("12,13,14,5,6,7,8,9,10"));
-        int[] nums = new int[] {-1, 0, 1, 2, -1, -4};
+        int[] nums = new int[]{-1, 0, 1, 2, -1, -4};
         List<List<Integer>> ret = threeSum2(nums, 0);
         System.out.println(ret);
 

@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 public class Matrix {
     /**
+     * 二维矩阵搜索
      * matrix从上到下递增，从左到右递增
      * 从matrix中寻找value，并返回下标，如果不存在，返回[-1,-1]
      *
@@ -20,6 +21,7 @@ public class Matrix {
             }
             if (matrix[row][cols] > value) {
                 cols--;
+                continue; //如果缺失，下面便可能越界
             }
             if (matrix[row][cols] < value) {
                 row++;

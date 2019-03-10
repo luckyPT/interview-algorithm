@@ -147,10 +147,55 @@ public class StringOperation {
         return null;
     }
 
+    /**
+     * 判断字符串是否是回文
+     *
+     * @param s A man, a plan, a canal: Panama;race a car
+     * @return true;false
+     */
+    static boolean isPalindrome(String s) {
+        s = s.toLowerCase();
+        int p = 0;
+        int l = s.length() - 1;
+        while (p < l) {
+            char pChar = s.charAt(p);
+            while (p < l && !((pChar >= '0' && pChar <= '9') || (pChar >= 'a' && pChar <= 'z'))) {
+                p++;
+                if (p < l) {
+                    pChar = s.charAt(p);
+                } else {
+                    return true;
+                }
+            }
+
+            char lChar = s.charAt(l);
+            while (p < l && !((lChar >= '0' && lChar <= '9') || (lChar >= 'a' && lChar <= 'z'))) {
+                l--;
+                if (p < l) {
+                    lChar = s.charAt(l);
+                } else {
+                    return true;
+                }
+            }
+
+            if (pChar != lChar) {
+                return false;
+            }else {
+                p++;
+                l--;
+            }
+        }
+        return true;
+    }
+
     public static void main(String[] args) {
         String[] parts = splitMoreParts("ababcbacadefegdehijhklij");
         System.out.println(Arrays.toString(parts));
         System.out.println(getMaxUniqueSubStr("abcdadefrderhuhuasdfghjk"));
         System.out.println(getMaxLengthCommonSeq("2345efd", "1ab2345cd"));
+
+        System.out.println(isPalindrome("A man, a plan, a canal: Panama"));
+        System.out.println(isPalindrome("race a car"));
+
     }
 }
