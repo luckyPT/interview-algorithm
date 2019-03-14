@@ -10,7 +10,7 @@
 
 关键点：Inversion of Control，译为控制反转，即将创建对象的权力交给框架进行。
 通过反射创建对象，默认是单例模式，通过scope属性来指定每一个实例的作用域，如request、session范围，prototype 任何一个实例都是新的实例。<br>
-详细创建过程：AnnotationUtils类找到使用相关注解的类，然后一系列的预处理，如是否为单例、是否有AOP相关注解（决定是否创建代理对象）、处理其他的一些注解如是否延迟创建等，如果满足创建条件则通过反射创建<br>
+详细创建过程：AnnotationUtils类找到使用相关注解的类（配置@ComponentScan注解），然后一系列的预处理，如是否为单例、是否有AOP相关注解（决定是否创建代理对象）、处理其他的一些注解如是否延迟创建等，如果满足创建条件则通过反射创建<br>
 通过实现ApplicationContextAware接口获取bean；
 
 ** 3. 聊一聊spring的AOP机制 **
@@ -36,4 +36,4 @@ spring-boot-starter-thymeleaf
 
 
 ** 8.用过哪些注解，每个注解的作用 **
-关键点：@Qualifier 
+关键点：@Qualifier、@ComponentScan
