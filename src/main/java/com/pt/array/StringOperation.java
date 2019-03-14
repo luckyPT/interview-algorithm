@@ -1,6 +1,7 @@
 package com.pt.array;
 
 import java.util.*;
+import java.util.concurrent.LinkedBlockingQueue;
 
 public class StringOperation {
     /**
@@ -16,6 +17,9 @@ public class StringOperation {
         int[] startEnd = new int[]{0, 0};
         Map<Character, Integer> char2Index = new HashMap<>();
         for (int i = 0; i < chars.length; i++) {
+            if (char2Index.containsKey(chars[i]) && char2Index.get(chars[i]) >= min) {
+                min = char2Index.get(chars[i]) + 1;
+            }
             min = Math.max(min, char2Index.getOrDefault(chars[i], -1));
             if (i - min > startEnd[1] - startEnd[0]) {
                 startEnd[0] = min;
@@ -180,7 +184,7 @@ public class StringOperation {
 
             if (pChar != lChar) {
                 return false;
-            }else {
+            } else {
                 p++;
                 l--;
             }
@@ -188,14 +192,51 @@ public class StringOperation {
         return true;
     }
 
+    /**
+     * 将一个字符串分割成回文串list，返回所有可能的方案
+     * 回溯算法：
+     * 使用递归进行深度搜索（类似于穷举），一个关键点是回溯，可通过双端队列实现。
+     * 类似的八皇后问题，也是用回溯算法求解
+     *
+     * @param s -
+     * @return
+     */
+    private static List<List<String>> partitionPalindrome(String s) {
+        List<List<String>> ret = new ArrayList<>();
+        partitionPalindromeHelper(s, 0, new LinkedList<>(), ret);
+        return ret;
+    }
+
+    private static void partitionPalindromeHelper(String s, int start, Deque<String> tmp, List<List<String>> result) {
+        if (start >= s.length()) {
+            List<String> tmpList = new LinkedList<>(tmp);
+            result.add(tmpList);
+            return;
+        }
+        for (int i = start; i < s.length(); i++) {
+            if (isPalindrome(s.substring(start, i + 1))) {
+                tmp.addLast(s.substring(start, i + 1));
+                partitionPalindromeHelper(s, i + 1, tmp, result);
+                tmp.pollLast();
+
+            }
+        }
+    }
+
     public static void main(String[] args) {
         String[] parts = splitMoreParts("ababcbacadefegdehijhklij");
         System.out.println(Arrays.toString(parts));
-        System.out.println(getMaxUniqueSubStr("abcdadefrderhuhuasdfghjk"));
+        System.out.println(getMaxUniqueSubStr("aabcdead"));
         System.out.println(getMaxLengthCommonSeq("2345efd", "1ab2345cd"));
 
         System.out.println(isPalindrome("A man, a plan, a canal: Panama"));
         System.out.println(isPalindrome("race a car"));
+
+        List<List<String>> ret = partitionPalindrome("cdd");
+        ret.forEach(t -> {
+            t.forEach(t1 -> System.out.print(t1 + ","));
+            System.out.println();
+        });
 
     }
 }
