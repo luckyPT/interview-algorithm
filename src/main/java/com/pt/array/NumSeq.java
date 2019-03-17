@@ -208,6 +208,43 @@ public class NumSeq {
         return cur;
     }
 
+    /**
+     * 给定一个整数数组 nums ，找出一个序列中乘积最大的连续子数组（该数组至少包含一个数）。
+     * <p>
+     * 时间复杂度O(n^3)
+     *
+     * @param nums [2,3,-2,4]；[-2,0,-1]
+     * @return 6；0
+     */
+    private static int maxProduct(int[] nums) {
+        int max = nums[0];
+        for (int i = 0; i < nums.length; i++) {
+            for (int j = i; j < nums.length; j++) {
+                int v = 1;
+                for (int k = i; k <= j; k++) {
+                    v *= nums[k];
+                }
+                if (v > max) {
+                    max = v;
+                }
+            }
+        }
+
+        return max;
+    }
+
+    private static int maxProduct2(int[] nums) {
+        int maxProduct = nums[0];
+        int max = nums[0], min = nums[0];
+        for (int i = 1; i < nums.length; i++) {
+            int tmpMax = max, tmpMin = min;
+            max = Math.max(Math.max(nums[i], nums[i] * tmpMax), nums[i] * tmpMin);
+            min = Math.min(Math.min(nums[i], nums[i] * tmpMin), nums[i] * tmpMax);
+            maxProduct = Math.max(max, maxProduct);
+        }
+        return maxProduct;
+    }
+
     public static void main(String[] args) {
         //System.out.println(maxContinueCount("54,55,300,12,56"));
         //System.out.println(maxContinueCount("100,4,200,1,3,2"));
@@ -220,5 +257,7 @@ public class NumSeq {
         List<List<Integer>> ret = threeSum2(nums, 0);
         System.out.println(ret);
 
+        int[] nums2 = new int[]{-2, 0, -1};
+        System.out.println(maxProduct(nums2));
     }
 }
