@@ -17,6 +17,8 @@
 
 ** 4. 聊一聊spring的MVC的实现 **
 
+关键流程：用户的请求首先到DispatcherServlet，doService->doDispatch->getHandler(HttpServletRequest request)方法，获得HandlerExecutionChain；根据handdler 调用getHandlerAdapter(Object handler)获取对应的适配器（适配器模式，推测可能是用户定义函数的输出格式多样与最终返回是ModelAndView有关）。适配器处理业务逻辑，返回ModelAndView给DispatcherServlet；然后是视图解析resolveViewName，返回一个View对象，View & Model进行融合返给前端，
+
 ** 5. 使用过spring/spring boot哪些相关的模块 **
 
 关键点：spring-boot-starter-web、spring-boot-starter-test、spring-boot-starter-cache、
