@@ -18,3 +18,7 @@ Map：完成集合到集合的映射，集合的元素是(key,value);这个映�
 Map方法：map(WritableComparable, Writable, Context) ；
 
 Job.setCombinerClass(Class)可以设置再Map端进行一些reduce操作，减少网络传输的数据量。
+
+Reduce：
+
+**4.Haoop的相关进程**
