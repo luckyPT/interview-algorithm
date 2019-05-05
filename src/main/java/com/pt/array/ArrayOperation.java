@@ -81,9 +81,10 @@ public class ArrayOperation {
      * 出现过i+1个的递增子序列的最后一个元素的最小值。
      * 比如数组countLocWithMinNum[3]表示当前4个元素构成的序列
      * 最后一个元素可能的最小值。时间复杂度n*logn
-     *
+     * <p>
      * 方法二：依次遍历，记录每一个元素对应的最长子序列，遍历下一个元素时，
      * 需要跟之前的每个元素做比较才能得到这个元素的最长子序列。时间复杂度为n^2
+     *
      * @param array -
      * @return 最长序列
      */
@@ -106,10 +107,31 @@ public class ArrayOperation {
         return countLocWithMinNum;
     }
 
+    /**
+     * 是否包含三元递增
+     *
+     * @param nums
+     * @return
+     */
+    public static boolean increasingTriplet(int[] nums) {
+        int min = Integer.MAX_VALUE, min1 = Integer.MAX_VALUE;
+        for (int i = 0; i < nums.length; ++i) {
+            if (nums[i] > min && nums[i] > min1)
+                return true;
+            if (nums[i] <= min) {//可以保证min < min1,并且min的位置一定位于min1的前面
+                min = nums[i];
+            } else if (nums[i] <= min1)
+                min1 = nums[i];
+        }
+        return false;
+    }
+
     public static void main(String[] args) {
         //System.out.println(Arrays.toString(getSumSubArray(new int[]{1, 2, 3, 4}, 6)));
         //System.out.println(Arrays.toString(getMaxSumSubStr(new int[]{3, 9, -8, 7, 6, 0, -5, 4, -3})));
 
         System.out.println(Arrays.toString(getMaxIncresingAarray(new int[]{2, 1, 5, 3, 4, 6, 8, 7, 9})));
+
+        System.out.println(increasingTriplet(new int[]{5, 6, 1, 7}));
     }
 }

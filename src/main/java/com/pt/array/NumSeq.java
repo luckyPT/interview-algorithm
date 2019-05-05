@@ -1,11 +1,6 @@
 package com.pt.array;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class NumSeq {
     /**
@@ -245,19 +240,209 @@ public class NumSeq {
         return maxProduct;
     }
 
+    /**
+     * 给定一个数组，将数组中的元素向右移动 k 个位置，其中 k 是非负数。
+     *
+     * @param nums
+     * @param k
+     */
+    public static void rotate1(int[] nums, int k) {
+        if (nums.length < 2) {
+            return;
+        }
+        k = k % nums.length;
+        while (k-- != 0) {
+            int num0 = nums[0];
+            nums[0] = nums[nums.length - 1];
+            for (int i = nums.length - 1; i > 1; i--) {
+                nums[i] = nums[i - 1];
+            }
+            nums[1] = num0;
+        }
+    }
+
+    private static void rotate2(int[] nums, int k) {
+        if (nums.length < 2) {
+            return;
+        }
+        k = k % nums.length;
+        int[] tmp = new int[k];
+        int tmpK = k;
+        while (tmpK != 0) {
+            tmp[tmpK - 1] = nums[nums.length - 1 - (k - tmpK)];
+            tmpK--;
+        }
+        for (int i = nums.length - 1 - k; i >= 0; i--) {
+            nums[i + k] = nums[i];
+        }
+        for (int i = 0; i < tmp.length; i++) {
+            nums[i] = tmp[i];
+        }
+    }
+
+    /**
+     * 给定一个数组 nums，编写一个函数将所有 0 移动到数组的末尾，同时保持非零元素的相对顺序。
+     * <p>
+     * 输入: [0,1,0,3,12]
+     * 输出: [1,3,12,0,0]
+     *
+     * @param nums
+     */
+    public void moveZeroes(int[] nums) {
+        Integer zeroIndex = null;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] == 0) {
+                if (zeroIndex == null) {
+                    zeroIndex = i;
+                }
+            } else {
+                if (zeroIndex != null) {
+                    swap(nums, zeroIndex, i);
+                    for (int j = zeroIndex + 1; j <= i; j++) {
+                        if (nums[j] == 0) {
+                            zeroIndex = j;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private static void swap(int[] nums, int i, int j) {
+        int t = nums[i];
+        nums[i] = nums[j];
+        nums[j] = t;
+    }
+
+    /**
+     * 编写一个算法来判断一个数是不是“快乐数”。
+     * <p>
+     * 一个“快乐数”定义为：对于一个正整数，每一次将该数替换为它每个位置上的数字的平方和，然后重复这个过程直到这个数变为 1，
+     * 也可能是无限循环但始终变不到 1。如果可以变为 1，那么这个数就是快乐数。
+     * <p>
+     * 输入: 19
+     * 输出: true
+     * 解释:
+     * 1^2 + 9^2 = 82
+     * 8^2 + 2^2 = 68
+     * 6^2 + 8^2 = 100
+     * 1^2 + 0^2 + 0^2 = 1
+     *
+     * @param n
+     * @return
+     */
+    public boolean isHappy(int n) {
+        String[] strs = ("" + n).split("");
+        int squareSum = 0;
+        for (String s : strs) {
+            squareSum += Math.pow(Integer.parseInt(s), 2);
+        }
+        if (squareSum == 1) {
+            return true;
+        }
+        Set<Integer> set = new HashSet<>();
+        set.add(n);
+        while (!set.contains(squareSum)) {
+            set.add(squareSum);
+            strs = ("" + squareSum).split("");
+            squareSum = 0;
+            for (String s : strs) {
+                squareSum += Math.pow(Integer.parseInt(s), 2);
+            }
+            if (squareSum == 1) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    /**
+     * 不使用加减运算符求 a 与 b的和
+     * <p>
+     * 此种方法可能越界
+     *
+     * @param a
+     * @param b
+     * @return
+     */
+    public static int getSum(int a, int b) {
+        if (a == 0) {
+            return b;
+        }
+        if (b == 0) {
+            return a;
+        }
+        double s = Math.pow(Math.E, a) * Math.pow(Math.E, b);
+        return (int) Math.log(s);
+    }
+
+    public static int getSum2(int a, int b) {
+        if (a == 0) {
+            return b;
+        }
+
+        while (b != 0) {
+            int xor = a ^ b;
+            int and = a & b;
+            and = and << 1;
+            //a+b = xor + and
+            a = xor;
+            b = and;
+        }
+        return a;
+    }
+
     public static void main(String[] args) {
+        System.out.println(Math.log(Math.E));
         //System.out.println(maxContinueCount("54,55,300,12,56"));
         //System.out.println(maxContinueCount("100,4,200,1,3,2"));
         //System.out.println(maxContinueCount("5,4,3,2,1"));
-        System.out.println(findMiddle("1"));
-        System.out.println(findMiddle("1,2,3"));
-        System.out.println(findMiddle("4,5,6,7,0,1,2"));
-        System.out.println(findMiddle("12,13,14,5,6,7,8,9,10"));
+        //System.out.println(findMiddle("1"));
+        //System.out.println(findMiddle("1,2,3"));
+        //System.out.println(findMiddle("4,5,6,7,0,1,2"));
+        //System.out.println(findMiddle("12,13,14,5,6,7,8,9,10"));
         int[] nums = new int[]{-1, 0, 1, 2, -1, -4};
+
         List<List<Integer>> ret = threeSum2(nums, 0);
         System.out.println(ret);
 
         int[] nums2 = new int[]{-2, 0, -1};
         System.out.println(maxProduct(nums2));
+        System.out.println(getSum2(89, 11));
+    }
+}
+
+class Solution {
+    int[] initNums;
+
+    public Solution(int[] nums) {
+        initNums = nums;
+    }
+
+    /**
+     * Resets the array to its original configuration and return it.
+     */
+    public int[] reset() {
+        return initNums;
+    }
+
+    /**
+     * 空间复杂度略高
+     * Returns a random shuffling of the array.
+     */
+    public int[] shuffle() {
+        List<Integer> list = new ArrayList<>();
+        for (int num : initNums) {
+            list.add(num);
+        }
+        int[] ret = new int[list.size()];
+        Random random = new Random();
+        for (int i = 0; i < ret.length; i++) {
+            ret[i] = list.remove(random.nextInt(list.size()));
+        }
+
+        return ret;
     }
 }

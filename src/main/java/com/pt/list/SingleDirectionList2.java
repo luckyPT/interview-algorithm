@@ -99,6 +99,22 @@ public class SingleDirectionList2 {
     }
 
     /**
+     * 递归对链表进行反转
+     *
+     * @param pre
+     * @param cur
+     * @return
+     */
+    public static Node reverseListByRecursion(Node pre, Node cur) {
+        if (cur == null) {
+            return pre;
+        }
+        Node tmpNext = cur.next;
+        cur.next = pre;
+        return reverseListByRecursion(cur, tmpNext);
+    }
+
+    /**
      * 对单链表进行选择排序(借助栈或者队列或许思路更清晰一些)
      * 思路：
      * 0.找到最小结点
@@ -183,7 +199,10 @@ public class SingleDirectionList2 {
         Node.createList(nodes);
         //reverseKByRecursive(nodes[0], 2, null);
         //reverseKByStack(nodes[0], 5);
-        Node head = selectSort(nodes[0]);
-        System.out.println(nodes[0].data);
+        //Node head = selectSort(nodes[0]);
+        //System.out.println(nodes[0].data);
+
+        Node last = reverseListByRecursion(null, nodes[0]);
+        System.out.println(last.data);
     }
 }
