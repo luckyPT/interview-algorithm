@@ -45,7 +45,38 @@ public class Number {
      * @param n
      */
     public static void printNum(int n) {
-
+        char[] chars = new char[n];
+        for (int i = 0; i < chars.length; i++) {
+            chars[i] = '0';
+        }
+        while (true) {
+            //判断是否结束
+            boolean isEnd = true;
+            int i = chars.length - 1;
+            for (; i >= 0; i--) {
+                if (chars[i] != '9') {
+                    isEnd = false;
+                    break;
+                }
+            }
+            if (isEnd) {
+                break;
+            }
+            chars[i++] += 1;
+            for (; i < chars.length; i++) {
+                chars[i] = '0';
+            }
+            int firstIndex = 0;
+            for (; firstIndex < chars.length; firstIndex++) {
+                if (chars[firstIndex] != '0') {
+                    break;
+                }
+            }
+            for (; firstIndex < chars.length; firstIndex++) {
+                System.out.print(chars[firstIndex]);
+            }
+            System.out.print(", ");
+        }
     }
 
     public static void main(String[] args) throws Exception {
@@ -53,5 +84,6 @@ public class Number {
         int y = 3;
         System.out.println(pow(x, y));
         System.out.println(Math.pow(x, y));
+        printNum(1);
     }
 }
