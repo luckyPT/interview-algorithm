@@ -35,3 +35,6 @@ Employee emp = Employee.class.newInstance();
 Constructor<Employee> constructor = Employee.class.getConstructor();
 Employee emp3 = constructor.newInstance();
 ```
+
+** 6. 内存泄漏举例 **
+什么是内存泄漏，不被使用的对象但不能被GC回收，大部分情况是由于编码错误引起的；比如：带有close方法的对象没有调用close；zk连接注册的监听对象，在不使用之后没有取消监听；
