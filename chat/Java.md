@@ -2,7 +2,7 @@
 ** 1.Java 基础数据类型有哪些？Integer和int的区别？**
 
 关键点：默认值，内存空间，是否可用于集合，自动装包、拆包机制，对小于128的缓存；<br>
-Integer一定在堆上，int可能在栈上，也可能在堆上；Integer在内存占用以及回收上的耗费大于int；
+Integer一定在堆上，int可能在栈上，也可能在堆上；Integer在内存占用(需要存储引用+对象)以及回收上的耗费大于int（仅仅存储值）；
 ```JAVA
     Integer i = new Integer(100); int j = 100； System.out.print(i == j); // 拆包之后比较true
 	Integer i = new Integer(100); Integer j = 100; System.out.print(i == j); //没有拆包过程，比较两个对象地址 false
