@@ -76,16 +76,39 @@
 - 寻找字符串中第一次出现且不重复的字符(假定只包含小写字母)
 
 - 乘积最大的子序列
-
 - 从1开始，打印至最大的n位数
+- [选择/快速/归并排序](src/main/java/com/pt/leetcode/sort/ArraySort.java)
+- [基于数组实现栈](src/main/java/com/pt/leetcode/stack/MyArrayStack.java)
+- [基于链表实现栈](src/main/java/com/pt/leetcode/stack/MyLinkStack.java)
 
 ### leetCode
 [4. 寻找两个有序数组的中位数](src/main/java/com/pt/leetcode/bin/search/LoopOrderedArraySearch.java)<br>
+[5. 最长回文子串](src/main/java/com/pt/leetcode/string/MaxCommonPalindromeStr.java)
+[10. 正则表达式匹配](src/main/java/com/pt/leetcode/string/RegexMatch.java)
+[15. 三数之和](src/main/java/com/pt/leetcode/ThreeSum.java)<br>
+[21. 合并两个有序链表](src/main/java/com/pt/leetcode/list/MergeTwoList.java)<br>
+[30. 串联所有单词的子串](src/main/java/com/pt/leetcode/string/StrConcatenate.java)
+[32. 最长有效括号](src/main/java/com/pt/leetcode/stack/ValidParentheses.java)
 [33. 搜索旋转排序数组](src/main/java/com/pt/leetcode/bin/search/LoopOrderedArraySearch.java)<br>
+[41. 缺失的第一个正数](src/main/java/com/pt/leetcode/MissPositive.java)<br>
 [46. 全排列](src/main/java/com/pt/leetcode/recursion/AllArrange.java)<br>
 [69. x 的平方根](src/main/java/com/pt/leetcode/bin/search/Sqrt.java)<br>
+[104. 二叉树的最大深度](src/main/java/com/pt/leetcode/tree/MaxDepth.java)
 [118. 杨辉三角](src/main/java/com/pt/leetcode/recursion/YangHuiSanJiao.java)<br>
 [119. 杨辉三角 II](src/main/java/com/pt/leetcode/recursion/YangHuiSanJiao.java)<br>
+[142. 环形链表 II](src/main/java/com/pt/leetcode/list/DetectCycle.java)<br>
+[144. 二叉树的前序遍历](src/main/java/com/pt/leetcode/tree/Traversition.java)
+[145. 二叉树的后序遍历](src/main/java/com/pt/leetcode/tree/Traversition.java)
+[146. LRU缓存机制](src/main/java/com/pt/leetcode/list/LRUCache.java)<br>
+[148. 排序链表](src/main/java/com/pt/leetcode/list/ListSort.java)<br>
+[171. Excel表列序号](src/main/java/com/pt/leetcode/ExcelColNum2ColTitle.java)<br>
 [206. 反转链表(递归实现)](src/main/java/com/pt/leetcode/recursion/ListReverse.java)<br>
+[215. 数组中的第K个最大元素](src/main/java/com/pt/leetcode/sort/KthLargest.java)<br>
+[227. 基本计算器 II](src/main/java/com/pt/leetcode/stack/CalculateStrValue.java)
+[234. 回文链表](src/main/java/com/pt/leetcode/list/PalindromeValidate.java)<br>
+[239. 滑动窗口最大值](src/main/java/com/pt/leetcode/queue/WindowMaxValues.java)<br>
+[622. 设计循环队列（链表实现）](src/main/java/com/pt/leetcode/queue/MyLinkCiycularQueue.java)<br>
+[622. 设计循环队列（数组实现，待完成）](src/main/java/com/pt/leetcode/queue/MyArrayCircularQueue.java)<br>
 [912. 排序数组(归并排序递归实现)](src/main/java/com/pt/leetcode/recursion/MergeSort.java)<br>
 [912. 排序数组(快速排序递归实现)](src/main/java/com/pt/leetcode/recursion/QuickSort.java)<br>
+[1106. 解析布尔表达式](src/main/java/com/pt/leetcode/stack/ParseBoolExpr.java)
