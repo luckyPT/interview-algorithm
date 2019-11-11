@@ -30,7 +30,7 @@
 - [乱序数列找出最长连续数字的个数](src/main/java/com/pt/array/NumSeq.java)
 - [最长公共子序列](src/main/java/com/pt/array/StringOperation.java)
 - [最长公共子串](src/main/java/com/pt/array/StringOperation.java)
-- [计算x^y](src/main/java/com/pt/array/NumSeq.java)
+- [计算x^y](src/main/java/com/pt/Number.java)
 - [返回数组中两数之和等于某值的元素索引（可扩展到三个元素，输出的并非索引 而是元素值，需要去重）](src/main/java/com/pt/array/NumSeq.java)
 - [验证回文字符串，（除数字和字符外，其他字符不计入）](src/main/java/com/pt/array/StringOperation.java)
 - [求大小为n的数组的众数](src/main/java/com/pt/array/NumSeq.java)
