@@ -142,12 +142,44 @@ public class StringOperation {
      * 方法1：构造M*N矩阵a，a[m][n] = str1[m].equals(str2[n]) ? 1 : 0
      * 按照对角线遍历，找到连续出现1的最长个数
      *
-     * @param str1 - M个字符的
-     * @param str2 - N个字符
+     * @param a - M个字符的
+     * @param b - N个字符
      * @return 公共子序列
      */
-    static String getMaxLengthCommonStr(String str1, String str2) {
-        return null;
+    static String getMaxLengthCommonStr(String a, String b) {
+        int[][] isCommon = new int[a.length()][b.length()];
+        for (int i = 0; i < a.length(); i++) {
+            for (int j = 0; j < b.length(); j++) {
+                if (a.charAt(i) == b.charAt(j)) {
+                    isCommon[i][j] = 1;
+                }
+            }
+        }
+        int max = Integer.MIN_VALUE;
+        int indexI = -1, indexJ = -1;
+        for (int i = 1; i < a.length(); i++) {
+            for (int j = 1; j < b.length(); j++) {
+                if (isCommon[i][j] == 1) {
+                    isCommon[i][j] += isCommon[i - 1][j - 1];
+                    if (max < isCommon[i][j]) {
+                        max = isCommon[i][j];
+                        indexI = i;
+                        indexJ = j;
+                    }
+                }
+            }
+        }
+        StringBuilder sb = new StringBuilder();
+        while (indexI >= 0 && indexJ >= 0) {
+            if (isCommon[indexI][indexJ] > 0) {
+                sb.append(b.charAt(indexJ));
+                indexI--;
+                indexJ--;
+            } else {
+                return sb.reverse().toString();
+            }
+        }
+        return sb.reverse().toString();
     }
 
     /**
@@ -481,5 +513,7 @@ public class StringOperation {
                     System.out.print(s + ",");
                     System.out.println();
                 });
+
+        System.out.println(getMaxLengthCommonStr("abcdefghijk", "abdefgijk"));
     }
 }
