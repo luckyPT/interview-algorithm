@@ -3,7 +3,7 @@
 - [数组中仅有一个数字出现过一次，其余均出现过2次；找到这个数字；](src/main/java/com/pt/FindSingle.java)
 - [数组中仅有两个数字出现过一次，其余均出现过2次；找到这两个数字；](src/main/java/com/pt/FindSingle.java)
 - [有序奇数个元素的数列随机旋转之后，找到中间数](src/main/java/com/pt/array/NumSeq.java)
-- [判断链表是否有环](src/main/java/com/pt/list/SingleDirectionList.java)
+- [判断链表是否有环(leetcode 142)](src/main/java/com/pt/list/SingleDirectionList.java)
 - 求链表长度（考虑有环和无环的情况，空间复杂度O(1)）
 - [两个链表是否相交（分两个无环链表是否相交 & 两个有环链表是否相交，一个有环一个无环不可能相交）](/src/main/java/com/pt/list/SingleDirectionList.java)
 - [链表按K分组，组内翻转](src/main/java/com/pt/list/SingleDirectionList2.java)
