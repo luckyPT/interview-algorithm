@@ -1,7 +1,5 @@
 package com.pt.tree;
 
-import com.pt.tree.BinTree;
-
 import java.util.*;
 
 public class BinSearchTree {
@@ -31,24 +29,24 @@ public class BinSearchTree {
         int rmaxValue = results[1];
         int rminValue = results[2];
 
-        if (root.data > lmaxValue && root.data < rminValue) {
+        if (root.val > lmaxValue && root.val < rminValue) {
             results[0] = lsize + rsize + 1;
             if (right != null) {
-                results[1] = Math.max(rmaxValue, root.data);
+                results[1] = Math.max(rmaxValue, root.val);
             } else {
-                results[1] = Math.max(root.data, lmaxValue);
+                results[1] = Math.max(root.val, lmaxValue);
             }
 
             if (left != null) {
-                results[2] = Math.min(root.data, lminValue);
+                results[2] = Math.min(root.val, lminValue);
             } else {
-                results[2] = Math.min(root.data, rminValue);
+                results[2] = Math.min(root.val, rminValue);
             }
 
             return root;
         } else {
-            results[1] = Math.max(Math.max(rmaxValue, lmaxValue), root.data);
-            results[2] = Math.min(Math.min(rminValue, lminValue), root.data);
+            results[1] = Math.max(Math.max(rmaxValue, lmaxValue), root.val);
+            results[2] = Math.min(Math.min(rminValue, lminValue), root.val);
 
             if (rsize > lsize) {
                 results[0] = rsize;
@@ -80,7 +78,7 @@ public class BinSearchTree {
                 curNode = curNode.left;
             } else {
                 TreeNode node = stack.pop();
-                if (min > node.data) {
+                if (min > node.val) {
                     if (curQueue.size() > lastQueue.size()) {
                         lastQueue = curQueue;
                         curQueue.clear();
@@ -88,7 +86,7 @@ public class BinSearchTree {
                 } else {
                     curQueue.add(node);
                 }
-                min = node.data;
+                min = node.val;
                 curNode = node.right;
             }
         }
@@ -122,7 +120,7 @@ public class BinSearchTree {
         BinTree.createCompleteTree(nodes1);
         BinTree.createCompleteTree(nodes2);
 
-        System.out.println(getMaxSearchTree(nodes[0]).data);
-        System.out.println(getMaxSearchTree2(nodes[0], new int[3]).data);
+        System.out.println(getMaxSearchTree(nodes[0]).val);
+        System.out.println(getMaxSearchTree2(nodes[0], new int[3]).val);
     }
 }

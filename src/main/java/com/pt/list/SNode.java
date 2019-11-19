@@ -1,5 +1,8 @@
 package com.pt.list;
 
+import java.util.ArrayDeque;
+import java.util.Queue;
+
 /**
  * 单链表结点
  *
@@ -71,18 +74,64 @@ public class SNode<T> {
         }
     }
 
+    /**
+     * 单链表选择排序
+     * @param head
+     * @return
+     */
+    public static ListNode sortList(ListNode head) {
+        ListNode lastNodeNext = null;
+        while (head.next != lastNodeNext) {
+            ListNode pre = null, cur = head, next = cur.next;
+            ListNode maxPre = pre, max = cur, maxNext = next;
+            ListNode lastNode = null;
+            while (cur != lastNodeNext) {
+                if (cur.val > max.val) {
+                    maxPre = pre;
+                    max = cur;
+                    maxNext = next;
+                }
+                if (cur.next == lastNodeNext) {
+                    lastNode = cur;
+                    break;
+                }
+                pre = cur;
+                cur = cur.next;
+                if (cur == null) {
+                    next = null;
+                } else {
+                    next = cur.next;
+                }
+            }
+            if (max == head) {
+                head = head.next;
+            }
+            if (max != lastNode) {//特殊情况，如果这个结点就是最后一个结点 不需要处理
+                //删除结点
+                if (maxPre != null) {
+                    maxPre.next = maxNext;
+                }
+                //添加到最后
+                max.next = lastNodeNext;
+                lastNode.next = max;
+            }
+            lastNodeNext = max;
+        }
+
+        return head;
+    }
+
     public static void main(String[] args) {
         ListNode node1 = new ListNode(1);
         ListNode node2 = new ListNode(2);
         ListNode node3 = new ListNode(3);
         ListNode node4 = new ListNode(4);
         ListNode node5 = new ListNode(5);
-        node1.next = node2;
-        node2.next = node3;
-        node3.next = node4;
-        node4.next = node5;
-        node5.next = node4;
+        node4.next = node2;
+        node2.next = node1;
+        node1.next = node3;
 
-        System.out.println(len(node1));
+        ListNode node = sortList(node4);
+        System.out.println(node);
     }
 }

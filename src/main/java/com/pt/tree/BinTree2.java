@@ -19,7 +19,7 @@ public class BinTree2 {
         stack.push(t1);
         while (!stack.empty()) {
             TreeNode node = stack.pop();
-            if (node.data == t2.data) {
+            if (node.val == t2.val) {
                 equalsNodes.add(node);
             }
             if (node.right != null) {
@@ -42,7 +42,7 @@ public class BinTree2 {
                 }
                 TreeNode t2Node = stack.pop();
                 TreeNode t1Node = stack1.pop();
-                if (t2Node.data != t1Node.data) {
+                if (t2Node.val != t1Node.val) {
                     break;
                 }
                 if (t2Node.right != null) {
@@ -142,9 +142,9 @@ public class BinTree2 {
 
         TreeNode root = buildTree(new int[]{1, 2, 4, 7, 3, 5, 6, 8}, new int[]{4, 7, 2, 1, 5, 3, 8, 6}, 0, 7);
         assert root != null;
-        System.out.println(root.data);
+        System.out.println(root.val);
 
         TreeNode commonRoot = findCommonRoot(t1[0], t1[4], t1[6]);
-        System.out.println(commonRoot.data);
+        System.out.println(commonRoot.val);
     }
 }

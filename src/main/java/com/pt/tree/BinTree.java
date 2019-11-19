@@ -51,7 +51,7 @@ public class BinTree {
      */
     private static TreeNode insertToSearchTree(TreeNode root, int data) {
         if (root == null) return new TreeNode(data);
-        if (root.data > data) {
+        if (root.val > data) {
             root.left = insertToSearchTree(root.left, data);
         } else {
             root.right = insertToSearchTree(root.right, data);
@@ -73,10 +73,10 @@ public class BinTree {
         DoubleDirectionLinkNode pre = null;
         while (queue.size() > 0) {
             if (pre == null) {
-                pre = new DoubleDirectionLinkNode(queue.poll().data);
+                pre = new DoubleDirectionLinkNode(queue.poll().val);
                 linkRootNode = pre;
             } else {
-                DoubleDirectionLinkNode tmp = new DoubleDirectionLinkNode(queue.poll().data);
+                DoubleDirectionLinkNode tmp = new DoubleDirectionLinkNode(queue.poll().val);
                 pre.next = tmp;
                 tmp.pre = pre;
                 pre = tmp;
@@ -107,14 +107,14 @@ public class BinTree {
         getLeftRightEdge(node, 1, leftRight);
         //打印左边界
         for (int i = 0; i < leftRight.length - 1; i++) {
-            System.out.println(leftRight[i][0].data);
+            System.out.println(leftRight[i][0].val);
         }
         //打印叶节点
         lastHLeaf(node, height, 1);
         //打印右边界
         for (int i = leftRight.length - 2; i > 0; i--) {
             if (leftRight[i][0] != leftRight[i][1]) {
-                System.out.println(leftRight[i][1].data);
+                System.out.println(leftRight[i][1].val);
             }
         }
     }
@@ -148,7 +148,7 @@ public class BinTree {
         lastHLeaf(node.left, height, curH + 1);
         lastHLeaf(node.right, height, curH + 1);
         if (curH == height) {
-            System.out.println(node.data);
+            System.out.println(node.val);
         }
     }
 
@@ -174,7 +174,7 @@ public class BinTree {
         while (!stack1.empty() || !stack2.empty()) {
             while (!stack1.empty()) {
                 TreeNode node = stack1.pop();
-                System.out.print(node.data + ",");
+                System.out.print(node.val + ",");
                 if (node.left != null) {
                     stack2.push(node.left);
                 }
@@ -185,7 +185,7 @@ public class BinTree {
             System.out.println();
             while (!stack2.empty()) {
                 TreeNode node = stack2.pop();
-                System.out.print(node.data + ",");
+                System.out.print(node.val + ",");
                 if (node.right != null) {
                     stack1.push(node.right);
                 }
