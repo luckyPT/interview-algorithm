@@ -129,8 +129,8 @@ public class BinTree {
      * <p>
      * 需要注意，当某层只有一个结点时，leftRightNode[n-1][0]和leftRightNode[n-1][1]会是同一个结点
      *
-     * @param node -
-     * @param h 树的高度，从 1 开始
+     * @param node          -
+     * @param h             树的高度，从 1 开始
      * @param leftRightNode -
      */
     private static void getLeftRightEdge(TreeNode node, int h, TreeNode[][] leftRightNode) {
@@ -143,6 +143,13 @@ public class BinTree {
         getLeftRightEdge(node.right, h + 1, leftRightNode);
     }
 
+    /**
+     * 这里应该是有问题的，如果叶节点不在最后一层的话，就不会被遍历
+     *
+     * @param node
+     * @param height
+     * @param curH
+     */
     private static void lastHLeaf(TreeNode node, int height, int curH) {
         if (node == null) return;
         lastHLeaf(node.left, height, curH + 1);
