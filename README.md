@@ -56,13 +56,15 @@
 [41. 缺失的第一个正数](src/main/java/com/pt/leetcode/MissPositive.java)<br>
 [46. 全排列](src/main/java/com/pt/leetcode/recursion/AllArrange.java)<br>
 [69. x 的平方根](src/main/java/com/pt/leetcode/bin/search/Sqrt.java)<br>
-[104. 二叉树的最大深度](src/main/java/com/pt/leetcode/tree/MaxDepth.java)
-[107. 二叉树的层次遍历 II](src/main/java/com/pt/tree/TreeNode.java)
+[104. 二叉树的最大深度](src/main/java/com/pt/leetcode/tree/MaxDepth.java)<br>
+[107. 二叉树的层次遍历 II](src/main/java/com/pt/tree/TreeNode.java)<br>
 [118. 杨辉三角](src/main/java/com/pt/leetcode/recursion/YangHuiSanJiao.java)<br>
 [119. 杨辉三角 II](src/main/java/com/pt/leetcode/recursion/YangHuiSanJiao.java)<br>
+[131. 分隔回文数](src/main/java/com/pt/leetcode/string/Palindrome.java)<br>
+[132. 分隔回文数 II](src/main/java/com/pt/leetcode/string/Palindrome.java)<br>
 [142. 环形链表 II](src/main/java/com/pt/leetcode/list/DetectCycle.java)<br>
-[144. 二叉树的前序遍历](src/main/java/com/pt/leetcode/tree/Traversition.java)
-[145. 二叉树的后序遍历](src/main/java/com/pt/leetcode/tree/Traversition.java)
+[144. 二叉树的前序遍历](src/main/java/com/pt/leetcode/tree/Traversition.java)<br>
+[145. 二叉树的后序遍历](src/main/java/com/pt/leetcode/tree/Traversition.java)<br>
 [146. LRU缓存机制](src/main/java/com/pt/leetcode/list/LRUCache.java)<br>
 [148. 排序链表](src/main/java/com/pt/leetcode/list/ListSort.java)<br>
 [171. Excel表列序号](src/main/java/com/pt/leetcode/ExcelColNum2ColTitle.java)<br>
@@ -76,3 +78,9 @@
 [912. 排序数组(归并排序递归实现)](src/main/java/com/pt/leetcode/recursion/MergeSort.java)<br>
 [912. 排序数组(快速排序递归实现)](src/main/java/com/pt/leetcode/recursion/QuickSort.java)<br>
 [1106. 解析布尔表达式](src/main/java/com/pt/leetcode/stack/ParseBoolExpr.java)
+[5123. 字母组合迭代器](src/main/java/com/pt/leetcode/Competition15.java)
+
+
+# 待解决
+1. 上楼梯问题
+2. how many ways to decode this message @leetCode 91

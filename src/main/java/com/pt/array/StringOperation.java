@@ -250,7 +250,6 @@ public class StringOperation {
                 tmp.addLast(s.substring(start, i + 1));
                 partitionPalindromeHelper(s, i + 1, tmp, result);
                 tmp.pollLast();
-
             }
         }
     }
